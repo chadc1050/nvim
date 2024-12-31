@@ -425,12 +425,11 @@ require('lazy').setup({
       -- Enable the following language servers
       local servers = {
         clangd = {},
+        docker_compose_language_service = {},
+        dockerls = {},
         gopls = {
           completeUnimported = true,
           usePlaceholders = true,
-          analyses = {
-            unusedparams = true,
-          },
         },
         pyright = {},
         rust_analyzer = {},
