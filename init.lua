@@ -104,6 +104,12 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Disable WASD
+vim.keymap.set('n', '<Up>', '<NOP>', { noremap = true, silent = true })
+vim.keymap.set('n', '<Left>', '<NOP>', { noremap = true, silent = true })
+vim.keymap.set('n', '<Down>', '<NOP>', { noremap = true, silent = true })
+vim.keymap.set('n', '<Right>', '<NOP>', { noremap = true, silent = true })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -426,7 +432,38 @@ require('lazy').setup({
           usePlaceholders = true,
         },
         pyright = {},
-        rust_analyzer = {},
+        rust_analyzer = {
+          settings = {
+            ['rust-analyzer'] = {
+              cargo = {
+                features = 'all',
+              },
+              checkOnSave = {
+                enable = true,
+                command = 'clippy',
+              },
+              check = {
+                command = 'clippy',
+              },
+              imports = {
+                group = {
+                  enable = false,
+                },
+              },
+              completion = {
+                postfix = {
+                  enable = false,
+                },
+              },
+              dignostics = {
+                enable = true,
+              },
+              procMacro = {
+                enable = true,
+              },
+            },
+          },
+        },
         html = {},
         markdown_oxide = {},
         lua_ls = {
