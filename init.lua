@@ -364,6 +364,7 @@ require("lazy").setup({
 			require('nvim-rooter').setup()
 		end
 	},
+    -- file browsing
     {
         'nvim-telescope/telescope-file-browser.nvim',
         dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
@@ -372,6 +373,21 @@ require("lazy").setup({
             vim.keymap.set('n', '<leader><tab>', ':Telescope file_browser<CR>'),
         }
         end,
+    },
+    -- gitsigns
+    {
+        'lewis6991/gitsigns.nvim',
+        event = { 'BufReadPre', 'BufNewFile' },
+        opts = {
+          signs = {
+                add          = { text = '┃' },
+                change       = { text = '┃' },
+                delete       = { text = '_' },
+                topdelete    = { text = '‾' },
+                changedelete = { text = '~' },
+                untracked    = { text = '┆' },
+            },
+        },
     },
 	-- fzf support for ^p
 	{
@@ -671,39 +687,3 @@ require("lazy").setup({
 	},
 })
 
---[[
-
-leftover things from init.vim that i may still end up wanting
-
-" Completion
-" Better completion
-" menuone: popup even when there's only one match
-" noinsert: Do not insert text until a selection is made
-" noselect: Do not select, force user to select one from the menu
-set completeopt=menuone,noinsert,noselect
-
-" Settings needed for .lvimrc
-set exrc
-set secure
-
-" Wrapping options
-set formatoptions=tc " wrap text and comments using textwidth
-set formatoptions+=r " continue comments when pressing ENTER in I mode
-set formatoptions+=q " enable formatting of comments with gq
-set formatoptions+=n " detect lists for formatting
-set formatoptions+=b " auto-wrap in insert mode, and do not wrap old long lines
-
-" <leader>s for Rg search
-noremap <leader>s :Rg
-let g:fzf_layout = { 'down': '~20%' }
-command! -bang -nargs=* Rg
-\ call fzf#vim#grep(
-\   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-\   <bang>0 ? fzf#vim#with_preview('up:60%')
-\           : fzf#vim#with_preview('right:50%:hidden', '?'),
-\   <bang>0)
-
-" <leader>q shows stats
-nnoremap <leader>q g<c-g>
-
---]]
