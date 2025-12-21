@@ -371,6 +371,11 @@ require("lazy").setup({
         config = function()
         require('telescope').setup {
             vim.keymap.set('n', '<leader><tab>', ':Telescope file_browser<CR>'),
+            defaults = {
+                preview = {
+                    treesitter = false,
+                },
+            },
         }
         end,
     },
